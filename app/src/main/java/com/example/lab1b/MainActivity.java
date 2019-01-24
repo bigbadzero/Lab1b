@@ -10,10 +10,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 
 public class MainActivity extends AppCompatActivity {
+
+
+    private final String[] messages = {"you get knocked out", "you go somewhere else", "you find a dead man", "you find a dead woman", "you meet a buxom blonde",
+            "someone has searched the place", "a crooked cop warns you", "you are arrested", "you find a gun", "you find a knife", "you find a frayed rope",
+            "a bullet whizzes past your ear!", "you are almost run over", "you are being followed", "you smell familiar perfume", "the telephone rings",
+            "there is a knock at the door", "you hear footsteps behind you ...", "you hear a gunshot!", "you hear a scream!", "you are not alone ...",
+            "... forget this story, it stinks!"};
+    private ArrayList<String> availableMessages;
+    Random r = new Random();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        availableMessages = new ArrayList<>(Arrays.asList(messages));
     }
 
     @Override
@@ -53,48 +65,22 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    private String[] MysteryHelper;
-    Random r = new Random();
-    String currentString;
 
-    {
-        MysteryHelper = new String[22];
-        MysteryHelper[0] = "you get knocked out";
-        MysteryHelper[1] = "you go somewhere else";
-        MysteryHelper[2] = "you find a dead man";
-        MysteryHelper[3] = "you find a dead woman";
-        MysteryHelper[4] = "you meet a buxom blonde";
-        MysteryHelper[5] = "someone has searched the place";
-        MysteryHelper[6] = "a crooked cop warns you";
-        MysteryHelper[7] = "you are arrested";
-        MysteryHelper[8] = "you find a gun";
-        MysteryHelper[9] = "you find a knife";
-        MysteryHelper[10] = "you find a frayed rope";
-        MysteryHelper[11] = "a bullet whizzes past your ear!";
-        MysteryHelper[12] = "you are almost run over";
-        MysteryHelper[13] = "you are being followed";
-        MysteryHelper[14] = "you smell familiar perfume";
-        MysteryHelper[15] = "the telephone rings";
-        MysteryHelper[16] = "there is a knock at the door";
-        MysteryHelper[17] = "you hear footsteps behind you ...";
-        MysteryHelper[18] = " you hear a gunshot!";
-        MysteryHelper[19] = "you hear a scream!";
-        MysteryHelper[20] = " you are not alone ...";
-        MysteryHelper[21] = "... forget this story, it stinks!";
-
-
-
-
-
-
-    }
 
     public void gethelp(View v) {
 
+
+        if (availableMessages.size() < 1) {
+            availableMessages = new ArrayList<>(Arrays.asList(messages));
+        }
+
+        int random = r.nextInt(availableMessages.size());
         TextView c = (TextView) findViewById(R.id.HelpMessage);
+        c.setText(availableMessages.get(random));
+
+        availableMessages.remove(random);
 
 
 
-
+        }
     }
-}
